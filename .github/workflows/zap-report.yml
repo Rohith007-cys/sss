@@ -1,0 +1,26 @@
+```yaml
+name: ZAP Security Report
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security_scan:
+    name: OWASP ZAP Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: 'https://www.zaproxy.org'
+          artifact_name: 'security-report'
+          allow_issue_writing: false
+          fail_action: false
+```
